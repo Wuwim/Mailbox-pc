@@ -7,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'userLogin',
-    component: () => import('../views/login.vue')
+    component: () => import('../views/email/login.vue')
   },
   {
     path: '/writeEmail',
     name: 'writeEmail',
-    component: () => import('../views/writeEmail.vue')
+    component: () => import('../views/email/writeEmail.vue')
   },
   {
     path: '/viewDetail',
     name: 'viewDetail',
-    component: () => import('../views/viewDetail.vue')
+    component: () => import('../views/email/viewDetail.vue')
   },
 ]
 

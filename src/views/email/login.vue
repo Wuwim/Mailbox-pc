@@ -3,7 +3,7 @@
     <div class="box flex_row">
       <div class="box_left">
         <div>
-          <img class="img" src="../img/logo-w.png" alt="" />
+          <img class="img" src="../../img/logo-w.png" alt="" />
         </div>
         <div class="box_left_w">校长信箱</div>
       </div>
@@ -82,6 +82,7 @@ export default {
         verificationCode: "",
       },
       rules: {
+        // 姓名判断
         userName: [{ required: true, message: "请输入姓名", trigger: "blur" }],
         idCard: [
           { required: true, message: "请输入身份证号", trigger: "blur" },
@@ -91,7 +92,9 @@ export default {
             trigger: "blur",
           },
         ],
+        // 密码判断
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        // 手机号码判断
         phone: [
           {
             required: true,
@@ -104,6 +107,7 @@ export default {
             trigger: "blur",
           },
         ],
+        // 验证码判断
         verificationCode: [
           {
             required: true,
@@ -112,7 +116,7 @@ export default {
           },
         ],
       },
-      num: 10,
+      num: 60,
       text: "获取验证码",
       status: false,
       timer: null,
@@ -125,7 +129,22 @@ export default {
     onSubmit(info) {
       this.$refs[info].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          if (this.type === "1") {
+            this.$router.push({
+              path: "/views/writeEmail",
+              query: {
+                id: this.id,
+              },
+            });
+            console.log("type=", this.type);
+          } else {
+            this.$router.push({
+              path: "/views/viewDetail",
+              query: {
+                id: this.id,
+              },
+            });
+          }
         } else {
           console.log("error submit!!");
           return false;
@@ -159,7 +178,7 @@ export default {
       }, 1000);
     },
     reset() {
-      this.num = 10;
+      this.num = 60;
       // this.loadingStatus = false;
       this.status = false;
       this.text = "获取验证码";
@@ -187,7 +206,7 @@ export default {
 .page {
   width: 100vw;
   height: 100vh;
-  background: url(../img/bg.png) no-repeat;
+  background: url(../../img/bg.png) no-repeat;
   background-size: cover;
 }
 .box {
