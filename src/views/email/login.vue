@@ -122,16 +122,18 @@ export default {
       timer: null,
     };
   },
+  created() {},
   mounted() {
     console.log("type=", this.type);
   },
   methods: {
     onSubmit(info) {
       this.$refs[info].validate((valid) => {
+        sessionStorage.setItem("info", JSON.stringify(this.info));
         if (valid) {
           if (this.type === "1") {
             this.$router.push({
-              path: "/views/writeEmail",
+              path: "/email/writeEmail",
               query: {
                 id: this.id,
               },
@@ -139,7 +141,7 @@ export default {
             console.log("type=", this.type);
           } else {
             this.$router.push({
-              path: "/views/viewDetail",
+              path: "/email/viewDetail",
               query: {
                 id: this.id,
               },
@@ -178,8 +180,8 @@ export default {
       }, 1000);
     },
     reset() {
+      //重置
       this.num = 60;
-      // this.loadingStatus = false;
       this.status = false;
       this.text = "获取验证码";
     },
@@ -188,6 +190,7 @@ export default {
       this.text = this.num + "S";
     },
     clearTimer() {
+      //清除定时器
       clearInterval(this.timer);
       this.timer = null;
     },
@@ -195,17 +198,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.flex_col {
-  display: flex;
-  flex-direction: column;
-}
-.flex_row {
-  display: flex;
-  flex-direction: row;
-}
 .page {
-  width: 100vw;
-  height: 100vh;
   background: url(../../img/bg.png) no-repeat;
   background-size: cover;
 }

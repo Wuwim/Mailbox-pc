@@ -26,19 +26,13 @@
           <img class="img" src="../../img/chance-w.png" alt="" />
           筛选
         </div>
-        <div class="search_box flex_row">
-          <input
-            class="search"
-            placeholder="请输入内容"
-            v-model="searchValue"
-          />
-          <img
-            class="img"
-            src="../../img/search.png"
-            alt=""
-            @click="search()"
-          />
-        </div>
+        <el-input
+          class="search"
+          placeholder="请选择日期"
+          suffix-icon="el-icon-search"
+          v-model="searchValue"
+        >
+        </el-input>
       </div>
     </div>
     <div class="fgx"></div>
@@ -151,11 +145,11 @@
         </div>
         <div class="email_box" v-show="showList">
           <div class="email">
-            <div class="title">{{ noMsglist.theme }}</div>
-            <div class="content">
+            <div class="email_title">{{ noMsglist.theme }}</div>
+            <div class="email_content">
               {{ noMsglist.problemDescription }}
             </div>
-            <div class="person_msg flex_row">
+            <div class="email_person_msg flex_row">
               <div class="msg_left flex_row">
                 <span class="name"> {{ noMsglist.userName }}</span>
                 <img class="phone" src="../../img/admin-phone.png" alt="" />
@@ -236,118 +230,53 @@ export default {
       id: "",
       searchValue: "",
       showList: true,
-      isShowBox: false,
-      isShowPop: false,
+      isShowBox: false, //控制导航栏筛选按钮显示、隐藏
+      isShowPop: false, //控制导航栏选择时间弹框显示、隐藏
       minDate: new Date(2020, 1, 1),
-      maxDate: new Date(2025, 10, 1),
-      startTime: new Date(2021, 10, 9),
+      maxDate: new Date(2025, 10, 1), //时间区间
+      startTime: new Date(2021, 10, 9), //开始时间
       endTime: new Date(2021, 10, 9),
-      startTimeValue: "",
-      endTimeValue: "",
-      repliedList: [
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription:
-            "问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply:
-            "问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试问题回答测试",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-      ],
-      noReplyList: [
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply: "",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply: "",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-        {
-          createBy: "411424199805042739",
-          createTime: "2021-11-05 09:38:56",
-          phone: "13023767915",
-          problemDescription: "问题描述测试",
-          remark: null,
-          theme: "问题主题",
-          reply: "",
-          replyState: 1,
-          searchValue: null,
-          updateBy: "admin",
-          updateTime: "2021-11-05 09:45:20",
-          userName: "史雪宁",
-        },
-      ],
-      msglist: {},
-      noMsglist: {},
+      startTimeValue: "", //时间返回值开始
+      endTimeValue: "",//时间返回值结束
+      repliedList: [],//回复列表
+      noReplyList: [],//未回复列表
+      msglist: {},//回复详情
+      noMsglist: {},//未回复详情
+      msg: [],//本地获取用户数据
+      list: [],//本地获取信息列表数据
+      chanceNum: 0,//点击未回复列表，返回的当前序列值
     };
   },
   created() {
-    let routerParams = this.$route.query.id;
-    this.userId = routerParams;
-    console.log(this.userId);
-    this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
-    this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
+    this.list = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取列表数据
+    console.log("list", this.list);
   },
   mounted() {
+    this.msg = JSON.parse(sessionStorage.getItem("info")); //本地获取用户数据
+    // 依据replyState,给列表赋值
+    for (var i in this.list) {
+      if (this.list[i].replyState == 0) {
+        this.noReplyList.push(this.list[i]);
+      } else {
+        this.repliedList.push(this.list[i]);
+      }
+    }
+    console.log("this.noReplyList", this.noReplyList);
+    console.log("this.repliedList", this.repliedList);
+    // 判断列表是否为空，假使不为空，添加选中状态并给详情赋值
+    if (!this.repliedList.length == 0) {
+      this.repliedList[0].checked = true;
+      this.msglist = this.repliedList[0];
+    } else {
+      this.msglist.theme = "当前列表暂无数据";
+    }
+    if (!this.noReplyList.length == 0) {
+      this.noReplyList[0].checked = true;
+      this.noMsglist = this.noReplyList[0];
+    } else {
+      this.noMsglist.theme = "当前列表暂无数据";
+    }
+    // 判断是否选择时间
     if (this.startTimeValue === "") {
       this.isShowBox = false;
     } else {
@@ -356,33 +285,12 @@ export default {
   },
   methods: {
     search() {
-      this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
-      this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
+      // this.getList(this.startTimeValue, this.endTimeValue, this.searchValue);
+      // this.getList1(this.startTimeValue, this.endTimeValue, this.searchValue);
     },
-    getList() {
-      this.msglist = this.repliedList[0];
-      this.noReplyList[0].checked = true;
-    },
-    getList1() {
-      // this.$api.admin
-      //   .getList({
-      //     startTime: sTime,
-      //     endTime: eTime,
-      //     replyState: 0,
-      //     theme: theme,
-      //   })
-      //   .then((res) => {
-      //     if (res.data.code == 0) {
-      //       console.log(res);
-      //       this.noReplyList = res.data.data;
-      //     } else {
-      //       console.log(res);
-      //       this.$message.success(res.data.msg);
-      //     }
-      //   });
-      this.repliedList[0].checked = true;
-      this.noMsglist = this.noReplyList[0];
-    },
+    getList() {},
+    getList1() {},
+    // 改变列表选中状态
     chance(index) {
       for (var i in this.repliedList) {
         if (i == index) {
@@ -398,28 +306,49 @@ export default {
         if (i == index) {
           this.noReplyList[i].checked = true;
           this.noMsglist = this.noReplyList[i];
+          this.chanceNum = index;
+          console.log(this.chanceNum);
         } else {
           this.noReplyList[i].checked = false;
         }
       }
     },
     updateMailbox(id, reply) {
-      this.$api.admin
-        .updateMailbox({
-          id: id,
-          reply: reply,
-          updateBy: this.userId,
-        })
-        .then((res) => {
-          if (res.data.code == 0) {
-            this.info = res.data.data;
-            this.$message.success("提交成功");
-          } else {
-            console.log(res);
-            this.$message.success(res.data.msg);
-          }
-        });
+      console.log(id, reply);
+      this.noMsglist.updateBy = this.msg.userName;
+
+      if (this.noMsglist.reply == "") {
+        this.$toast("请输入回复的内容");
+        return false;
+      }
+      this.noMsglist.replyState = 1;
+
+      var myDate = new Date();
+      this.noMsglist.updateTime =
+        myDate.getFullYear() +
+        "-" +
+        (myDate.getMonth() + 1) +
+        "-" +
+        myDate.getDate() +
+        " " +
+        myDate.getHours() +
+        ":" +
+        myDate.getMinutes() +
+        ":" +
+        myDate.getSeconds();
+      console.log("noMsglist", this.noMsglist);
+      this.noMsglist.checked = false;
+
+      console.log("noMsglist111", this.noMsglist);
+      this.list[id] = this.noMsglist;
+
+      this.repliedList[0].checked = false;
+      console.log("list", this.list);
+      this.noReplyList[this.chanceNum].checked = false;
+      sessionStorage.setItem("noReplyList", JSON.stringify(this.list));
+      this.$router.go(0);
     },
+    // 时间重置
     resetTime() {
       this.startTimeValue = "";
       this.endTimeValue = "";
@@ -429,6 +358,7 @@ export default {
         this.isShowBox = true;
       }
     },
+    //选择时间
     sureTime() {
       this.isShowPop = false;
       this.startTimeValue =
@@ -460,18 +390,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.flex_col {
-  display: flex;
-  flex-direction: column;
-}
-.flex_row {
-  display: flex;
-  flex-direction: row;
-}
-.page {
-  height: 100vh;
-  background: #f5f6f7;
-}
 .pop {
   z-index: 998;
   position: absolute;
@@ -545,6 +463,7 @@ export default {
   align-items: center;
   margin-right: 50px;
   .chance {
+    white-space: nowrap;
     cursor: pointer;
     margin-right: 20px;
     padding: 5px 12px;
@@ -561,6 +480,7 @@ export default {
     }
   }
   .chance1 {
+    white-space: nowrap;
     cursor: pointer;
     margin-right: 20px;
     padding: 5px 12px;
@@ -576,9 +496,8 @@ export default {
       width: 27px;
     }
   }
-  .search_box {
-    align-items: center;
-    .search {
+  .search {
+    ::v-deep .el-input__inner {
       position: relative;
       padding-left: 30px;
       width: 418px;
@@ -586,14 +505,15 @@ export default {
       background: #eeeeee;
       border: 1px solid #e3e3e3;
       opacity: 1;
-      border-radius: 31px;
+      border-radius: 30px;
       font-size: 24px;
       color: #6e6e6e;
     }
-    .img {
-      position: relative;
-      right: 10%;
-      width: 21px;
+    ::v-deep .el-input__icon {
+      color: #444444;
+      height: 105%;
+      font-size: 24px;
+      width: 45px;
     }
   }
 }
@@ -725,6 +645,16 @@ export default {
   border: 1px solid #d9d9d9;
   border-radius: 10px;
 }
+.email_box::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 8px;
+}
+.email_box::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  width: 4px;
+  border-radius: 7px;
+  background: #c6c7c7;
+}
 .email {
   padding: 40px 80px;
 }
@@ -737,6 +667,7 @@ export default {
   background-size: 20px 76px;
 }
 .email_content {
+  word-break: break-all;
   font-size: 24px;
   color: #3e4d70;
   line-height: 76px;
@@ -784,6 +715,7 @@ export default {
   padding: 20px 20px 30px;
   font-size: 24px;
   line-height: 46px;
+  word-break: break-all;
   .asw_asw {
     padding: 5px 10px;
     background: #80b3f2;

@@ -7,24 +7,46 @@
     <div class="main_box">
       <div class="main">
         <div class="text_box">
-          <el-input
-            class="title"
-            v-model="info.title"
-            placeholder="请输入不超过20字的标题"
-          ></el-input>
-          <el-input
-            class="content"
-            type="textarea"
-            placeholder="请输入内容限500字以内"
-            v-model="info.content"
-            maxlength="500"
-            :autosize="{ minRows: 13, maxRows: 13 }"
+          <el-form
+            :model="info"
+            :rules="rules"
+            :show-message="false"
+            @validate="validate"
+            ref="ruleForm"
+            class="demo-form-inline"
           >
-          </el-input>
+            <el-form-item prop="theme">
+              <el-input
+                class="title"
+                v-model="info.theme"
+                placeholder="请输入不超过20字的标题"
+              ></el-input>
+            </el-form-item>
+            <el-form-item prop="problemDescription">
+              <el-input
+                class="content"
+                type="textarea"
+                placeholder="请输入内容限500字以内"
+                v-model="info.problemDescription"
+                maxlength="500"
+                :autosize="{ minRows: 8, maxRows: 20 }"
+              >
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                class="btn"
+                type="primary"
+                @click="onSubmit('ruleForm')"
+                >确定提交</el-button
+              >
+            </el-form-item>
+          </el-form>
         </div>
       </div>
     </div>
-    <el-button class="btn" @click="onSubmit">确定提交</el-button>
+
+    <!-- 自定义弹框 -->
     <div class="pop" v-show="isshow">
       <div class="qrcode_box flex_col">
         <div class="qrcode_w1 flex_row">
@@ -44,21 +66,75 @@ export default {
   data() {
     return {
       info: {
-        title: "",
-        content: "",
-        idCard: "",
+        checked: false,
+        id: 0,
+        userName: "",
+        createBy: "",
+        phone: "",
+        theme: "",
+        problemDescription: "",
+        createTime: "",
+        replyState: 0,
+        reply: "",
+        searchValue: null,
+        updateBy: "",
+        updateTime: "",
+      },
+      rules: {
+        theme: [{ required: true, message: "请输入主题", trigger: "blur" }],
+        problemDescription: [
+          { required: true, message: "请输入内容描述", trigger: "blur" },
+        ],
       },
       isshow: false,
     };
   },
-  created() {
-    let routerParams = this.$route.query.idCard;
-    console.log(routerParams);
-    this.info.idCard = routerParams;
+  created() {},
+  mounted() {
+    this.list = JSON.parse(sessionStorage.getItem("info")); //本地获取数据
+    this.info.userName = this.list.userName;
+    this.info.createBy = this.list.idCard;
+    this.info.phone = this.list.phone;
   },
   methods: {
-    onSubmit() {
-      this.isshow = true;
+    validate(rule, value, callback) {
+      // console.log(rule, value, callback);
+      if (value == false) {
+        this.$message.error(callback);
+      }
+    },
+    onSubmit(info) {
+      this.$refs[info].validate((valid) => {
+        sessionStorage.setItem("info", JSON.stringify(this.info));
+        if (valid) {
+          this.isshow = true;
+          // 生成当前发送时间
+          var myDate = new Date();
+          this.info.createTime =
+            myDate.getFullYear() +
+            "-" +
+            (myDate.getMonth() + 1) +
+            "-" +
+            myDate.getDate() +
+            " " +
+            myDate.getHours() +
+            ":" +
+            myDate.getMinutes() +
+            ":" +
+            myDate.getSeconds();
+          console.log("createTiem:" + this.createTime);
+          console.log("info", this.info);
+          this.arr = JSON.parse(sessionStorage.getItem("noReplyList")); //本地获取数据
+          this.arr.push(this.info);
+          for (var i in this.arr) {
+            this.arr[i].id = i;
+            this.id = i;
+          }
+          sessionStorage.setItem("noReplyList", JSON.stringify(this.arr));
+        } else {
+          return false;
+        }
+      });
     },
     goindex() {
       this.isshow = false;
@@ -67,19 +143,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.flex_col {
-  display: flex;
-  flex-direction: column;
-}
-.flex_row {
-  display: flex;
-  flex-direction: row;
-}
-.page {
-  width: 100%;
-  height: 100vh;
-  background: #f5f6f7;
-}
 .pop {
   z-index: 998;
   position: absolute;
@@ -152,7 +215,6 @@ export default {
 .main {
   margin: 22px auto 0px;
   width: 1352px;
-  height: 1098px;
   background: #ffffff;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
@@ -166,7 +228,7 @@ export default {
       color: #272727;
       border: none;
       line-height: 76px;
-      background: url(../../img/line-bg.png) repeat;
+      background: url(../../img/line-bg1.png) repeat;
       background-size: 20px 76px;
     }
   }
@@ -179,10 +241,10 @@ export default {
   bottom: 6%;
   margin: auto;
   width: 380px;
-  height: 61px;
+  height: 60px;
   background: #3e83e9;
   border: 1px solid #e3e3e3;
-  border-radius: 31px;
+  border-radius: 30px;
   font-size: 24px;
   color: #ffffff;
 }
@@ -210,3 +272,4 @@ export default {
   color: #3e4d70;
 }
 </style>
+

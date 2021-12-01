@@ -10,12 +10,12 @@ const routes = [
     component: () => import('../views/email/login.vue')
   },
   {
-    path: '/writeEmail',
+    path: '/email/writeEmail',
     name: 'writeEmail',
     component: () => import('../views/email/writeEmail.vue')
   },
   {
-    path: '/viewDetail',
+    path: '/email/viewDetail',
     name: 'viewDetail',
     component: () => import('../views/email/viewDetail.vue')
   },
